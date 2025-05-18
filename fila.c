@@ -46,3 +46,43 @@ void liberar_fila(Fila *fila) {
     }
     free(fila);
 }
+
+void menu_atendimento(Lista *lista, Fila *fila) {
+    int opcao;
+    char rg[20];
+    Elista *paciente;
+
+    do {
+        printf("\n--- Menu Atendimento Regular ---\n");
+        printf("1. Enfileirar paciente\n");
+        printf("2. Desenfileirar paciente\n");
+        printf("3. Mostrar fila\n");
+        printf("0. Voltar ao menu principal\n");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("RG do paciente para enfileirar: ");
+                scanf("%s", rg);
+                paciente = buscar_paciente(lista, rg);
+                if (paciente != NULL) {
+                    enfileirar(fila, paciente->dados);
+                    printf("Paciente enfileirado com sucesso.\n");
+                } else {
+                    printf("Paciente não encontrado.\n");
+                }
+                break;
+            case 2:
+                if (fila->head != NULL) {
+                    printf("Paciente %s desenfileirado.\n", fila->head->dados->nome);
+                    desenfileirar(fila);
+                } else {
+                    printf("Fila vazia.\n");
+                }
+                break;
+            case 3:
+                mostrar_fila(fila);
+                break;
+        }
+    } while (opcao != 0);
+}

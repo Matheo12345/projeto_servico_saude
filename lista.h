@@ -31,5 +31,6 @@ void mostrar_lista(Lista *lista);
 void atualizar_paciente(Lista *lista, char *rg);
 void remover_paciente(Lista *lista, char *rg);
 void liberar_lista(Lista *lista);
+void menu_cadastro(Lista *lista);
 
 #endif
