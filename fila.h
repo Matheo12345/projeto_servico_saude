@@ -19,5 +19,5 @@ void enfileirar(Fila *fila, Registro *dados);
 void desenfileirar(Fila *fila);
 void mostrar_fila(Fila *fila);
 void liberar_fila(Fila *fila);
-
+void menu_atendimento(Lista *lista, Fila *fila);
 #endif
