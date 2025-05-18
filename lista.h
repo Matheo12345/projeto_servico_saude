@@ -28,6 +28,7 @@ Lista* criar_lista();
 void cadastrar_paciente(Lista *lista);
 Elista* buscar_paciente(Lista *lista, char *rg);
 void mostrar_lista(Lista *lista);
+void atualizar_paciente(Lista *lista, char *rg);
 void remover_paciente(Lista *lista, char *rg);
 void liberar_lista(Lista *lista);
 

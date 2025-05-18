@@ -1,4 +1,4 @@
-    #include "lista.h"
+#include "lista.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -47,7 +47,14 @@ Elista* buscar_paciente(Lista *lista, char *rg) {
 void mostrar_lista(Lista *lista) {
     Elista *atual = lista->inicio;
     while (atual != NULL) {
-        printf("Nome: %s | RG: %s\n", atual->dados->nome, atual->dados->rg);
+        printf("Nome: %s | RG: %s | Idade: %d | Data de entrada: %02d/%02d/%04d\n", 
+            atual->dados->nome, 
+            atual->dados->rg, 
+            atual->dados->idade, 
+            atual->dados->entrada->dia, 
+            atual->dados->entrada->mes, 
+            atual->dados->entrada->ano
+        );
         atual = atual->proximo;
     }
 }
@@ -62,4 +69,46 @@ void liberar_lista(Lista *lista) {
         free(temp);
     }
     free(lista);
+}
+
+void atualizar_paciente(Lista *lista, char *rg) {
+    Elista *paciente = buscar_paciente(lista, rg);
+    if (paciente != NULL) {
+        printf("Novo nome: ");
+        scanf("%99s", paciente->dados->nome);
+        printf("Nova idade: ");
+        scanf("%d", &paciente->dados->idade);
+        printf("Nova data (dd mm aaaa): ");
+        scanf("%d %d %d",
+            &paciente->dados->entrada->dia,
+            &paciente->dados->entrada->mes,
+            &paciente->dados->entrada->ano
+        );
+        printf("Paciente atualizado com sucesso.\n");
+    } else {
+        printf("Paciente não encontrado.\n");
+    }
+}
+
+void remover_paciente(Lista *lista, char *rg) {
+    Elista *anterior = NULL;
+    Elista *paciente = lista->inicio;
+    while (paciente != NULL && strcmp(paciente->dados->rg, rg) != 0) {
+        anterior = paciente;
+        paciente = paciente->proximo;
+    }
+    if (paciente == NULL) {
+        printf("Paciente não encontrado.\n");
+    } else {
+        if (anterior == NULL) {
+            lista->inicio = paciente->proximo;
+        } else {
+            anterior->proximo = paciente->proximo;
+        }
+        free(paciente->dados->entrada);
+        free(paciente->dados);
+        free(paciente);
+        lista->qtde--;
+        printf("Paciente removido com sucesso.\n");
+    }
 }
