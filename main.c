@@ -1,5 +1,3 @@
-main.c
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista.h"
@@ -51,6 +49,20 @@ int main() {
             case 5:
                 menu_desfazer(pilha);
                 break;
+            case 6: {
+                int escolha;
+                char nome_arquivo[100] = "pacientes.csv";
+                printf("1. Carregar lista\n2. Salvar lista\nEscolha: ");
+                scanf("%d", &escolha);
+                if (escolha == 1) {
+                    carregar_lista(lista, nome_arquivo);
+                } else if (escolha == 2) {
+                    salvar_lista(lista, nome_arquivo);
+                } else {
+                    printf("Opção inválida.\n");
+                }
+                break;
+            }
         }
     } while(opcao != 0);
 

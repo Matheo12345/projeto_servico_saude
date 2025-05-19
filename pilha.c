@@ -1,18 +1,16 @@
-pilha.c
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "pilha.h"
 
 Pilha* criar_pilha() {
-    Pilha p = (Pilha) malloc(sizeof(Pilha));
+    Pilha *p = (Pilha*) malloc(sizeof(Pilha));
     p->topo = NULL;
     return p;
 }
 
 void empilhar(Pilha *pilha, Operacao operacao) {
-    EPilha novo = (EPilha) malloc(sizeof(EPilha));
+    EPilha *novo = (EPilha*) malloc(sizeof(EPilha));
     novo->operacao = operacao;
     novo->proximo = pilha->topo;
     pilha->topo = novo;

@@ -1,20 +1,18 @@
-fila.c 
-
-#include "fila.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "pilha.h"
+#include "fila.h"
 
 Fila* criar_fila() {
-    Fila fila = (Fila)malloc(sizeof(Fila));
+    Fila *fila = (Fila*)malloc(sizeof(Fila));
     fila->head = fila->tail = NULL;
     fila->qtde = 0;
     return fila;
 }
 
 void enfileirar(Fila *fila, Registro *dados) {
-    EFila novo = (EFila)malloc(sizeof(EFila));
+    EFila *novo = (EFila*)malloc(sizeof(EFila));
     novo->dados = dados;
     novo->proximo = NULL;
 
