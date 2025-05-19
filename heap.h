@@ -15,5 +15,6 @@ void inserir_heap(Heap *heap, Registro *dados);
 void heapify_up(Heap *heap, int index);
 Registro* remover_heap(Heap *heap);
 void mostrar_heap(Heap *heap);
+void menu_atendimento_prioritario(Lista *lista, Heap *heap);
 
 #endif

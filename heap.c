@@ -42,3 +42,52 @@ void mostrar_heap(Heap *heap) {
         printf("%s (Idade: %d)\n", heap->dados[i]->nome, heap->dados[i]->idade);
     }
 }
+#ifndef MAX_HEAP
+#define MAX_HEAP 20
+#endif
+
+// Função menu de atendimento prioritário
+void menu_atendimento_prioritario(Lista *lista, Heap *heap) {
+    int opcao;
+    char rg[20];
+    Elista *paciente;
+    Registro *removido;
+
+    do {
+        printf("\n--- Menu Atendimento Prioritário ---\n");
+        printf("1. Enfileirar paciente prioritário\n");
+        printf("2. Desenfileirar paciente prioritário\n");
+        printf("3. Mostrar heap de prioridade\n");
+        printf("0. Voltar ao menu principal\n");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                if (heap->qtde >= MAX_HEAP) {
+                    printf("Capacidade máxima de atendimentos atingida (20 pacientes).\n");
+                    break;
+                }
+                printf("RG do paciente para enfileirar: ");
+                scanf("%s", rg);
+                paciente = buscar_paciente(lista, rg);
+                if (paciente != NULL) {
+                    inserir_heap(heap, paciente->dados);
+                    printf("Paciente inserido na fila prioritária com sucesso.\n");
+                } else {
+                    printf("Paciente não encontrado.\n");
+                }
+                break;
+            case 2:
+                removido = remover_heap(heap);
+                if (removido != NULL) {
+                    printf("Paciente %s (idade %d) removido da fila prioritária.\n", removido->nome, removido->idade);
+                } else {
+                    printf("Heap vazio.\n");
+                }
+                break;
+            case 3:
+                mostrar_heap(heap);
+                break;
+        }
+    } while (opcao != 0);
+}
