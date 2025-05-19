@@ -6,6 +6,15 @@
 #include "arvore.h"
 #include "pilha.h"
 
+void menu_sobre() {
+    printf("\n=== SOBRE PROJETO===\n");
+    printf("Nomes: Edson Pedreira de Oliveira Junior e Matheo de Aquino Esteves\n");
+    printf("Ciclo: 4º Ciclo\n");
+    printf("Curso: Ciência da Computação\n");
+    printf("Disciplina: Estrutura de Dados\n");
+    printf("Data: 19/05/2025\n");
+}
+
 void menu_principal() {
     printf("\n=== MENU ===\n");
     printf("1. Cadastrar\n");
@@ -63,6 +72,9 @@ int main() {
                 }
                 break;
             }
+            case 7:
+                menu_sobre();
+                break;
         }
     } while(opcao != 0);
 
