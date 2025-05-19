@@ -3,6 +3,7 @@
 #include "lista.h"
 #include "fila.h"
 #include "heap.h"
+#include "arvore.h"
 
 void menu_principal() {
     printf("\n=== MENU ===\n");
@@ -22,7 +23,7 @@ int main() {
     Lista *lista = criar_lista();
     Fila *fila = criar_fila();
     Heap *heap = criar_heap();
-
+    Arvore *arvore = criar_arvore();
     int opcao;
     do {
         menu_principal();
@@ -38,12 +39,17 @@ int main() {
                 menu_atendimento_prioritario(lista, heap);
                 break;
             }
-            // Implementar outros casos...
+            case 4: {
+                carregar_lista_na_arvore(lista, arvore);
+                menu_pesquisa(arvore);
+                break;
+            }
         }
     } while(opcao != 0);
 
     liberar_lista(lista);
     liberar_fila(fila);
     free(heap);
+    free(arvore);
     return 0;
 }
