@@ -32,5 +32,7 @@ void atualizar_paciente(Lista *lista, char *rg);
 void remover_paciente(Lista *lista, char *rg);
 void liberar_lista(Lista *lista);
 void menu_cadastro(Lista *lista);
+void salvar_lista(Lista *lista, const char *nome_arquivo);
+void carregar_lista(Lista *lista, const char *nome_arquivo);
 
 #endif
