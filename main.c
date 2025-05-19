@@ -35,7 +35,7 @@ int main() {
                 menu_atendimento(lista, fila);
                 break;
             case 3: {
-                // Implementar atendimento prioritario
+                menu_atendimento_prioritario(lista, heap);
                 break;
             }
             // Implementar outros casos...
