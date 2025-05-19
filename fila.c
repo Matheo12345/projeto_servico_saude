@@ -1,16 +1,20 @@
+fila.c 
+
 #include "fila.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include "pilha.h"
 
 Fila* criar_fila() {
-    Fila *fila = (Fila*)malloc(sizeof(Fila));
+    Fila fila = (Fila)malloc(sizeof(Fila));
     fila->head = fila->tail = NULL;
     fila->qtde = 0;
     return fila;
 }
 
 void enfileirar(Fila *fila, Registro *dados) {
-    EFila *novo = (EFila*)malloc(sizeof(EFila));
+    EFila novo = (EFila)malloc(sizeof(EFila));
     novo->dados = dados;
     novo->proximo = NULL;
 
@@ -47,10 +51,11 @@ void liberar_fila(Fila *fila) {
     free(fila);
 }
 
-void menu_atendimento(Lista *lista, Fila *fila) {
+void menu_atendimento(Lista *lista, Fila *fila, Pilha *pilha) {
     int opcao;
     char rg[20];
     Elista *paciente;
+    Operacao op;
 
     do {
         printf("\n--- Menu Atendimento Regular ---\n");
@@ -68,6 +73,9 @@ void menu_atendimento(Lista *lista, Fila *fila) {
                 if (paciente != NULL) {
                     enfileirar(fila, paciente->dados);
                     printf("Paciente enfileirado com sucesso.\n");
+                    strcpy(op.tipo, "enfileirar");
+                    strcpy(op.nome, paciente->dados->nome);
+                    empilhar(pilha, op);
                 } else {
                     printf("Paciente não encontrado.\n");
                 }
@@ -75,6 +83,9 @@ void menu_atendimento(Lista *lista, Fila *fila) {
             case 2:
                 if (fila->head != NULL) {
                     printf("Paciente %s desenfileirado.\n", fila->head->dados->nome);
+                    strcpy(op.tipo, "desenfileirar");
+                    strcpy(op.nome, fila->head->dados->nome);
+                    empilhar(pilha, op);
                     desenfileirar(fila);
                 } else {
                     printf("Fila vazia.\n");

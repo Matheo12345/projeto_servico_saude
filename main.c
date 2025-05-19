@@ -1,9 +1,12 @@
+main.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista.h"
 #include "fila.h"
 #include "heap.h"
 #include "arvore.h"
+#include "pilha.h"
 
 void menu_principal() {
     printf("\n=== MENU ===\n");
@@ -24,6 +27,7 @@ int main() {
     Fila *fila = criar_fila();
     Heap *heap = criar_heap();
     Arvore *arvore = criar_arvore();
+    Pilha *pilha = criar_pilha();
     int opcao;
     do {
         menu_principal();
@@ -33,7 +37,7 @@ int main() {
                 menu_cadastro(lista);
                 break;
             case 2:
-                menu_atendimento(lista, fila);
+                menu_atendimento(lista, fila, pilha);
                 break;
             case 3: {
                 menu_atendimento_prioritario(lista, heap);
@@ -44,6 +48,9 @@ int main() {
                 menu_pesquisa(arvore);
                 break;
             }
+            case 5:
+                menu_desfazer(pilha);
+                break;
         }
     } while(opcao != 0);
 
@@ -51,5 +58,6 @@ int main() {
     liberar_fila(fila);
     free(heap);
     free(arvore);
+    liberar_pilha(pilha);
     return 0;
 }
