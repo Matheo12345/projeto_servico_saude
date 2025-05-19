@@ -157,3 +157,52 @@ void menu_cadastro(Lista *lista) {
         }
     } while (opcao != 0);
 }
+
+void salvar_lista(Lista *lista, const char *nome_arquivo) {
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (!arquivo) {
+        printf("Erro ao abrir o arquivo para salvar.\n");
+        return;
+    }
+
+    Elista *atual = lista->inicio;
+    while (atual) {
+        fprintf(arquivo, "%s;%d;%s;%d;%d;%d\n",
+                atual->dados->nome,
+                atual->dados->idade,
+                atual->dados->rg,
+                atual->dados->entrada->dia,
+                atual->dados->entrada->mes,
+                atual->dados->entrada->ano);
+        atual = atual->proximo;
+    }
+
+    fclose(arquivo);
+    printf("Pacientes salvos com sucesso em '%s'.\n", nome_arquivo);
+}
+
+void carregar_lista(Lista *lista, const char *nome_arquivo) {
+    FILE *arquivo = fopen(nome_arquivo, "r");
+    if (!arquivo) {
+        printf("Erro ao abrir o arquivo '%s' para leitura.\n", nome_arquivo);
+        return;
+    }
+
+    char linha[256];
+    while (fgets(linha, sizeof(linha), arquivo)) {
+        Registro *r = (Registro *) malloc(sizeof(Registro));
+        r->entrada = (Data *) malloc(sizeof(Data));
+        sscanf(linha, "%[^;];%d;%[^;];%d;%d;%d",
+               r->nome, &r->idade, r->rg,
+               &r->entrada->dia, &r->entrada->mes, &r->entrada->ano);
+
+        Elista *novo = (Elista *) malloc(sizeof(Elista));
+        novo->dados = r;
+        novo->proximo = lista->inicio;
+        lista->inicio = novo;
+        lista->qtde++;
+    }
+
+    fclose(arquivo);
+    printf("Pacientes carregados com sucesso de '%s'.\n", nome_arquivo);
+}
